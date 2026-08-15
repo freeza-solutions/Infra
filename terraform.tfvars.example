@@ -1,0 +1,4 @@
+# Cria no seu ambiente um arquivo terraform.tfvars e copia o que está abaixo
+
+key_pair_name = "vockey"
+vnc_password  = "urubu100"

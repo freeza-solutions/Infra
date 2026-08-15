@@ -1,0 +1,62 @@
+#!/bin/bash
+# Ambiente Kali AWS - Atacante (Kali/Kasm) e Alvo (LocalStack)
+# Executado como user_data (cloud-init) no primeiro boot da instancia, como root.
+
+# 1. Limpar (Remove qualquer rastro que possa causar o erro 401)
+echo "Limpando ambiente"
+docker rm -f kali-lab localstack-lab 2>/dev/null
+docker network rm lab-network 2>/dev/null
+
+# 2. Preparacao do Host
+export DEBIAN_FRONTEND=noninteractive
+apt update && apt install -y docker.io
+systemctl enable --now docker
+docker network create lab-network
+
+# 3. Instalacao do Kali Linux - Atacante
+echo "Subindo Kali Linux (Aguarde...)"
+docker run -d \
+  --name kali-lab \
+  --network lab-network \
+  --privileged \
+  -p 6901:6901 \
+  -e VNC_PW=${vnc_password} \
+  --shm-size=512m \
+  kasmweb/kali-rolling-desktop:1.15.0
+
+# 4. Subida do LocalStack - Alvo
+docker run -d \
+  --name localstack-lab \
+  --network lab-network \
+  -p 4566:4566 \
+  -e SERVICES=s3,iam \
+  localstack/localstack
+
+echo "Aguardando inicializacao (30 segundos)"
+sleep 30
+
+# 5. CORRECAO DA CHAVE GPG (Para nao travar a instalacao das ferramentas)
+echo "Atualizando chaves de seguranca"
+docker exec -u 0 kali-lab apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ED65462EC8D5E4C5
+
+# 6. SINCRONIZACAO DE SENHA (evitar o Erro 401)
+echo "Sincronizar senhas"
+docker exec -u 0 kali-lab sh -c "echo 'kasm_user:${vnc_password}' | chpasswd"
+docker exec -u 0 kali-lab sh -c "echo 'kasm_user ALL=(ALL) ALL' >> /etc/sudoers"
+docker exec -u 0 kali-lab sh -c "echo 'kasm-user:${vnc_password}' | chpasswd"
+docker exec -u 0 kali-lab sh -c "echo 'kasm-user ALL=(ALL) ALL' >> /etc/sudoers"
+
+# 7. INSTALACAO DAS FERRAMENTAS (Com verificacao)
+echo "Instalar ferramentas (Autopsy, Nmap, AWS CLI)..."
+docker exec -u 0 kali-lab apt update
+docker exec -u 0 kali-lab apt install -y nmap autopsy sleuthkit awscli
+
+# 8. FINALIZACAO
+echo "-------------------------------------------------------"
+echo "LABORATORIO CONFIGURADO!"
+echo "-------------------------------------------------------"
+echo "URL: https://$(curl -s ifconfig.me):6901"
+echo "USUARIO: kasm_user"
+echo "IMPORTANTE1: Se der erro 401, use JANELA ANONIMA."
+echo "IMPORTANTE2: Use na URL https://"
+echo "-------------------------------------------------------"
