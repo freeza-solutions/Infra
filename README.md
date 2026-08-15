@@ -36,7 +36,7 @@
    1. Abra a URL do output (`kali_desktop_url`), sempre com **`https://`** — nunca `http://`.
    2. O navegador vai acusar certificado inválido (é autoassinado) — clique em *Avançado* → *Prosseguir mesmo assim*.
    3. Se aparecer erro **401**, abra em uma **janela anônima/privada** e tente de novo.
-   4. Usuário: `kasm_user` — senha: o valor que você colocou em `vnc_password` no `terraform.tfvars` - "urubu100".
+   4. Usuário: `kasm_user` — senha: `urubu100`.
 
 5. **Destruir quando terminar** (evita gastar crédito do Lab à toa):
    ```bash
