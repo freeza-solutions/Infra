@@ -38,3 +38,9 @@ variable "vnc_password" {
   type        = string
   sensitive   = true
 }
+
+variable "localstack_auth_token" {
+  description = "Token do LocalStack Pro. Defina em terraform.tfvars."
+  type        = string
+  sensitive   = true
+}

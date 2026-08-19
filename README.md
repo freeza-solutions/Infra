@@ -17,6 +17,7 @@
    Edite `terraform.tfvars`:
    - `key_pair_name` — o **nome** do Key Pair na AWS (sem `.pem`)
    - `vnc_password` — senha que você quer para o usuário `kasm_user` do Kali
+   - `localstack_auth_token` — token da sua conta LocalStack (necessário para recursos Pro)
 
    Esse arquivo é seu, local, e nunca vai pro git (está no `.gitignore`).
 

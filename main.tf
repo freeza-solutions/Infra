@@ -68,7 +68,8 @@ resource "aws_instance" "this" {
   iam_instance_profile = var.iam_instance_profile_name
 
   user_data = templatefile("${path.module}/scripts/setup-kali-lab.sh.tftpl", {
-    vnc_password = var.vnc_password
+    vnc_password          = var.vnc_password
+    localstack_auth_token = var.localstack_auth_token
   })
 
   user_data_replace_on_change = true

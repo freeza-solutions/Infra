@@ -30,6 +30,7 @@ docker run -d \
   --network lab-network \
   -p 4566:4566 \
   -e SERVICES=s3,iam \
+  -e LOCALSTACK_AUTH_TOKEN=${localstack_auth_token} \
   localstack/localstack
 
 echo "Aguardando inicializacao (30 segundos)"

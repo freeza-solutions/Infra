@@ -2,3 +2,4 @@
 
 key_pair_name = "vockey"
 vnc_password  = "urubu100"
+localstack_auth_token = "COLE_SEU_TOKEN_LOCALSTACK_AQUI"
