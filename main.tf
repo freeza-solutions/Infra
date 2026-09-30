@@ -19,7 +19,7 @@ data "aws_vpc" "default" {
 
 resource "aws_security_group" "this" {
   name        = "${var.project_name}-sg"
-  description = "SSH, MySQL/Aurora e acesso web (noVNC) para a instancia ${var.project_name}"
+  description = "SSH e acesso web (noVNC) para a instancia ${var.project_name}"
   vpc_id      = data.aws_vpc.default.id
 
   ingress {
@@ -47,10 +47,18 @@ resource "aws_security_group" "this" {
   }
 
   egress {
-    description = "noVNC / web client"
-    from_port   = 6901
-    to_port     = 6901
+    description = "Saida TCP (apt, docker pull, ssh, https...)"
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "DNS (necessario para resolver hostnames via apt/docker)"
+    from_port   = 53
+    to_port     = 53
+    protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
