@@ -1,0 +1,506 @@
+Segurança e Arquitetura em Nuvem
+Grupo 5
+Gabriel de Oliveira Santos
+João Assis
+Kaio Cassiano Barbosa
+Ranier Dalton do Couto
+Vitor da Silva Almeida
+Parte 1 - Governança: Objetivos de Segurança x Evidências x ISO 27001 x
+Objetivo Final
+A análise abaixo adapta as evidências do último laboratório de Segurança Ofensiva ao modelo de
+governança apresentado em aula. O laboratório utilizou LocalStack para emular serviços AWS,
+principalmente S3 e IAM, e demonstrou uma cadeia de ataque composta por reconhecimento, injeção
+de dados e coleta/exfiltração. As relações com os pilares de segurança foram definidas a partir do
+impacto efetivamente observado em cada evidência.
+Evidência Requisito ISO
+Pilar Foco na Nuvem Objetivo Final
+identificada 27001:2022
+Criação e acesso a
+Impedir acesso e
+buckets via curl sem IAM, bucket policies,
+criação de recursos por
+Controlabilidade
+a
+p
+u
+a
+t
+r
+e
+te
+n t
+c
+ic
+o
+a
+m
+ç ã
+a
+o
+c
+;
+e
+q
+s
+u
+s
+a
+o
+lq
+d
+u
+e
+e r m
+blo
+e
+q
+n
+u
+o
+e
+r
+i
+p
+o
+r i
+d
+v
+e
+il é
+a
+g
+c
+i
+e
+o
+s
+e
+s o
+5
+A
+.
+c
+1
+e
+5
+s s
+-
+o
+C ontrole de
+usuários não
+r
+s
+e
+ta
+d
+g
+e
+e
+p
+-r
+o
+a
+d
+w
+ia
+.
+escrever no público.
+a
+a
+u
+s
+t
+u
+o
+p
+ri
+e
+za
+rf
+d
+íc
+o
+ie
+s ,
+d
+r
+e
+e d
+a
+u
+ta
+z
+q
+in
+u
+d
+e
+o
+.
+Execução dos scripts Garantir rastreabilidade,
+CloudTrail, S3 Server
+sem identidade IAM e atribuição das ações e
+Auditabilidade sem trilha de auditoria
+A
+re
+c
+g
+c
+i
+e
+st
+s
+r
+s
+o s
+L ogging e 8
+E
+.
+v
+1
+e
+5
+n
+-
+to
+R
+s
+e
+(
+g
+L
+i
+o
+s
+g
+tr
+g
+o
+i n
+d
+g
+e
+)
+evidências para
+s
+a
+u
+s
+f i
+a
+c
+ç
+ie
+õ
+n
+e
+t
+s
+e
+.
+para atribuir
+centralizados/imutáveis.
+i
+c
+n
+o
+v
+n
+e
+f
+s
+o
+t
+r
+i
+m
+ga
+id
+ç
+a
+ã
+d
+o
+e
+e
+.
+Enumeração dos
+Monitoramento de
+buckets e Detectar rapidamente
+eventos S3, inventário
+Visibilidade
+r
+a
+e
+m
+co
+b
+n
+ie
+h
+n
+e
+te
+c im
+oc
+e
+o
+n
+r
+t
+r
+o
+e r
+d
+a
+o
+m
+de ativos e alertas de
+8
+d
+.
+e
+1 6
+S e
+-
+g
+M
+u
+o
+ra
+n
+n
+it
+ç
+o
+a
+ra mento s
+a
+o
+n
+n
+ô
+d
+m
+a
+a
+g
+l
+e
+o
+n
+s
+s
+e
+, a
+m
+c
+u
+e
+d
+s
+a
+s
+n
+o
+ç
+s
+a s
+s
+d
+e
+e
+m
+fe n
+d
+s
+e
+iv
+te
+o
+c
+.
+ção ou alerta
+c
+a
+o
+n
+m
+ôm
+po
+a
+r
+lo
+ta
+.
+mento
+no ambiente.
+A cadeia
+reconhecimento ->
+Reduzir o tempo de
+injeção -> exfiltração Resposta a incidentes, 5.24 - Planejamento e
+Agilidade pôde ocorrer isolamento, alertas e Preparação para
+exposição e conter
+rapidamente, sem recuperação rápida. Gestão de Incidentes
+i
+i
+n
+m
+c
+p
+id
+a
+e
+c
+n
+to
+te
+s
+s
+e
+a
+p
+n
+r
+t
+o
+e
+p
+s
+a
+q
+g
+u
+u
+e
+e .
+o
+mecanismo de resposta
+para conter a ação.
+O script carga.py
+Reduzir erro humano e
+enviava dados Validação automática
+impedir
+automaticamente e o de schema/faixa,
+Automação ambiente aceitava Lambda no PutObject e
+8
+S
+.
+e
+2
+g
+8
+u
+-
+r a
+C odificação a
+e
+u
+n
+t
+t
+o
+ra
+m
+d
+a
+a
+t
+s
+ic
+m
+am
+al
+e
+ic
+n
+io
+te
+s as ou
+valores anômalos, políticas aplicadas
+c
+v
+o
+a
+m
+lid
+o
+a ç
+9
+ã
+9
+o
+9
+.
+, 99°C, sem automaticamente.
+f
+s
+o
+is
+ra
+te
+d
+m
+a
+a
+s
+.
+regras do
+Justificativa das relações
+Controlabilidade: A falha central do laboratório foi a ausência de autenticação e autorização no
+armazenamento. A listagem de buckets e o PUT no stage-raw funcionaram sem credenciais. Portanto, a
+evidência responde diretamente à pergunta "quem pode fazer o quê?" e exige controle de acesso, IAM
+e políticas restritivas.
+Auditabilidade: No ambiente do laboratório, as chamadas não possuíam identidade IAM associada.
+Em uma AWS real, CloudTrail poderia registrar identidade, IP e timestamp, desde que habilitado e
+monitorado. Assim, o foco é criar histórico confiável para investigação e responsabilização.
+Visibilidade: O reconhecimento revelou a topologia dos buckets e confirmou que o endpoint aceitava
+requisições sem autenticação, mas nenhuma defesa detectou a sondagem. Monitoramento contínuo e
+alertas permitiriam enxergar a atividade enquanto ela ocorre.
+Agilidade: Como as etapas do ataque puderam ser executadas em sequência e sem contenção, uma
+resposta rápida deveria interromper a cadeia antes da exfiltração. O objetivo é reduzir o tempo de
+exposição e recuperar o ambiente com rapidez.
+Automação: A própria automação ofensiva mostrou a ausência de controles automáticos defensivos. O
+valor 999,99°C foi aceito porque não havia validação de esquema ou faixa. Uma validação automática
+na ingestão poderia rejeitar o evento antes de sua propagação.
+Parte 2 - Perguntas e Respostas (FAQ) - Responder com evidências
+Sobre a Infraestrutura e Ferramentas
+1. Por que foi utilizado o LocalStack em vez de uma conta real na nuvem?
+O LocalStack foi utilizado porque emula localmente APIs da AWS, como S3 e IAM, permitindo
+reproduzir o comportamento de um ambiente de nuvem em um laboratório controlado. No case, ele
+desempenhou o papel do ambiente alvo, hospedando os buckets e respondendo às chamadas HTTP
+como um S3 real responderia. Isso permitiu executar reconhecimento, injeção e exfiltração sem colocar
+dados ou recursos reais de uma conta AWS em risco.
+2. Por que foi utilizado curl e URL/Python nativo em vez de ferramentas prontas como o AWS
+CLI?
+O uso de curl e scripts Python tornou explícito o comportamento das requisições HTTP contra o
+endpoint S3 emulado. As evidências mostram GET para listar buckets/objetos e PUT para enviar
+arquivos diretamente, sem autenticação ou assinatura de requisição. Dessa forma, ficou mais fácil
+demonstrar que a vulnerabilidade estava na configuração e no controle de acesso do serviço, e não em
+uma ferramenta específica.
+Sobre as Vulnerabilidades Identificadas
+1. Qual foi a falha mais crítica encontrada?
+A falha mais crítica foi a ausência de autenticação e autorização no serviço de armazenamento,
+relacionada ao Controle 5.15 - Controle de Acesso. Ela permitiu enumerar buckets, gravar objetos no
+stage-raw e ler o conteúdo armazenado sem credenciais. O próprio relatório conclui que essa falha
+funciona como porta de entrada para as demais violações observadas.
+2. O que é o dado de 999,99°C que apareceu nos logs e qual o seu impacto?
+O valor de 999,99°C foi um dado propositalmente anômalo gerado pelo script de carga para simular
+Data Poisoning. O fato de o bucket aceitar esse valor demonstrou ausência de validação de schema e
+de faixa. O impacto principal é sobre a integridade: um dado falso pode ser tratado como legítimo e, se
+não for filtrado, propagar-se do stage-raw para a camada trusted e para sistemas downstream.
+Sobre o Papel da Segurança (Responsabilidade Compartilhada)
+1. De quem é a responsabilidade pela falha que permitiu a exfiltração dos dados?
+No cenário estudado, a responsabilidade está na configuração de segurança do ambiente: não havia
+autenticação, autorização, bucket policy restritiva nem monitoramento suficiente. Dentro do modelo de
+responsabilidade compartilhada, o provedor protege a infraestrutura da nuvem, enquanto o cliente é
+responsável por configurar corretamente identidades, permissões, dados e controles de acesso dos
+recursos que utiliza. Como o LocalStack apenas emulava o serviço, o laboratório evidenciou justamente
+a consequência de uma configuração insegura feita pelo lado que administra o ambiente.
+2. Por que houve facilidade para o ataque? A segurança falhou?
+Houve facilidade porque não existia defesa em profundidade. O atacante conseguiu reconhecer os
+buckets, inserir dados e exfiltrar arquivos usando apenas acesso de rede e chamadas HTTP, sem
+explorar uma vulnerabilidade de software ou roubar credenciais. Assim, a segurança falhou
+principalmente nos controles preventivos e detectivos: controle de acesso, validação de dados, logging
+e monitoramento. O problema não foi o conceito de nuvem em si, mas a ausência de controles
+corretamente configurados.

@@ -1,0 +1,278 @@
+Situação Finalizada
+Iniciado terça-feira, 1 set. 2026, 18:06
+Concluído terça-feira, 1 set. 2026, 18:31
+Duração 25 minutos 23 segundos
+Notas 17,00/18,00
+Nota 9,44 de um máximo de 10,00(94,44%)
+1
+Questão Um colaborador de uma instituição financeira acessou acidentalmente registros de clientes que não faziam parte do seu departamento. Qual pilar da Tríade CIA foi comprometido neste cenário?
+Correto
+Atingiu 1,00 de
+1,00
+a. Auditabilidade
+b. Integridade
+c. Disponibilidade
+d. Confidencialidade 
+e. Auditabilidade
+A resposta correta é: Confidencialidade
+2
+Questão Estudo de Caso: Auditoria Técnica vs. Conformidade ISO 27001
+Correto
+Contexto Normativo
+Atingiu 1,00 de
+De acordo com o controle A.12.6.1 (Gestão de Vulnerabilidades Técnicas) da ISO 27001, a organização deve obter informações sobre vulnerabilidades técnicas de sistemas de informação em uso e
+1,00
+tomar medidas apropriadas para mitigar os riscos associados.
+Contexto prático:
+Figura 1
+Cenário de Auditoria
+Você, como auditor(a) ou engenheiro(a) de segurança, realizou o scan na instância 192.168.1.50 (usando o ksm-user) e obteve a tela anterior. Agora, precisa transformar esses dados brutos em um
+relatório de conformidade.
+Análise sob a Ótica de Riscos
+Identificação (Asset Inventory): O Nmap confirmou a existência de um ativo rodando Apache 2.4.52 e OpenSSH 8.9p1 - nestas versões,
+Análise de Lacunas (Gap Analysis): O Apache 2.4.52 (lançado por volta de 2022) pode conter vulnerabilidades conhecidas se não tiver recebido backports de segurança da distribuição Ubuntu.
+Evidência de Auditoria: A captura de tela serve como evidência de que o controle de monitoramento de rede está ativo, mas também aponta que a superfície de exposição (portas 22, 80 e 443)
+deve ser justificada pela necessidade de negócio.
+Questão
+Ao analisar a tela do Nmap, o gestor de segurança percebe que a porta 22 (SSH) está aberta para a internet em uma instância de produção na nuvem. Considerando as diretrizes da ISO 27001 sobre o
+controle de acesso e gestão de vulnerabilidades, qual é a recomendação MAIS adequada?
+a. Desinstalar o serviço HTTP e utilizar apenas SSH (porta 80), pois protocolos ssp são inerentemente mais seguros que protocolos de administração remota.
+b. Desinstalar o serviço SSH e utilizar apenas HTTP (porta 80), pois protocolos web são inerentemente mais seguros que protocolos de administração remota.
+c. Manter a porta 22 aberta, pois a versão OpenSSH 8.9p1 é considerada recente e segura contra todos os exploits atuais.
+d. Restringir o acesso à porta 22 via Security Groups ou Firewall, permitindo conexões apenas de IPs de gerência (VPN/Bastion Host), minimizando a superfície de ataque conforme o 
+princípio do privilégio mínimo.
+e. Implementar um controle de "Segurança por Obscuridade", alterando a porta 22 para a porta 2222, o que cumpre integralmente os requisitos da ISO 27001.
+A resposta correta é: Restringir o acesso à porta 22 via Security Groups ou Firewall, permitindo conexões apenas de IPs de gerência (VPN/Bastion Host), minimizando a superfície de ataque
+conforme o princípio do privilégio mínimo.
+3
+Questão I. A identificação da porta 4556 aberta via comando nmap constitui uma evidência de falha no pilar da Visibilidade defensiva.
+Correto
+PORQUE
+Atingiu 1,00 de
+II. O reconhecimento de portas expostas permite que um atacante mapeie a superfície de ataque e identifique serviços de infraestrutura de nuvem, como o LocalStack.
+1,00
+a. A asserção I é falsa e a II é verdadeira
+b. As asserções I e II são verdadeiras, mas a II não é uma justificativa da I
+c. Ambas as asserções são falsas
+d. A asserção I é verdadeira e a II é falsa
+e. As asserções I e II são verdadeiras, e a II é uma justificativa correta da I 
+A resposta correta é: As asserções I e II são verdadeiras, e a II é uma justificativa correta da I
+4
+Questão Um arquiteto de soluções quer garantir que a configuração de rede de um ambiente de produção seja idêntica à de homologação, evitando erros humanos. Qual princípio de segurança apoia essa
+Correto prática através da infraestrutura como código?
+Atingiu 1,00 de
+1,00
+a. Automação 
+b. Controlabilidade
+c. Rastreabilidade
+d. Defesa
+e. Ataque ofensivo
+A resposta correta é: Automação
+5
+Questão Uma empresa desativou todos os servidores que não eram utilizados e fechou as portas 22 (SSH) e 3389 (RDP) que estavam abertas para a internet pública. Qual princípio de design eles aplicaram?
+Correto
+NOTA EXPLICATIVA: O termo RDP (Remote Desktop Protocol): é um protocolo utilizado para o acesso remoto a áreas de trabalho de servidores.
+Atingiu 1,00 de
+1,00
+a. Princípio do menor privilégio
+b. Minimizar ataque de superfície 
+c. Habilitar da rastreabilidade
+d. Aumentar da disponibilidade
+e. Permitir acessos
+A resposta correta é: Minimizar ataque de superfície
+6
+Questão Um usuário perdeu sua chave privada SSH usada para acessar um servidor EC2. De acordo com o Modelo de Responsabilidade Compartilhada, quem é responsável pela proteção e recuperação
+Correto dessas chaves de acesso?
+Atingiu 1,00 de
+Atores:
+1,00
+A cloud
+o usuário que compra os serviços da cloud
+o terceiro, para quem o usuário provê serviços
+a. A Cloud
+b. O cliente do cliente, terceiro
+c. Ambos
+d. Usuário (Cliente do Serviço Cloud) 
+e. Desenvolvedor da aplicação
+A resposta correta é: Usuário (Cliente do Serviço Cloud)
+7
+Questão A BioTemp Guard é uma startup de healthtech em São Paulo que desenvolve soluções de telemetria baseadas em IoT para o monitoramento crítico de armazenamento de sangue. O sistema deles
+Correto utiliza sensores de temperatura que enviam dados a cada segundo para um banco de dados na nuvem, garantindo a integridade dos ativos médicos críticos.
+Atingiu 1,00 de
+O problema: no lançamento da versão beta, para acelerar o tempo de chegada ao mercado, a equipe de desenvolvimento negligenciou os pilares fundamentais da segurança em nuvem. O ambiente
+1,00
+foi provisionado com:
+1. Chaves de acesso do IAM compartilhadas e com permissões excessivas.
+2. Security Groups com regras de entrada totalmente abertas (0.0.0.0/0).
+3. Inexistência de validação de dados na ingestão das APIs de telemetria.
+O Incidente (Data Poisoning): Um ex-funcionário descontente, utilizando as chaves de acesso que ainda não haviam sido rotacionadas, executou um ataque de Data Poisoning. Ele utilizou um script
+Python para injetar dados falsos (temperaturas extremas de 999.9 °C) em massa, na tentativa de ocultar um problema de equipamento real e forçar o descarte de bolsas de sangue vitais.
+Aqui está o script gerado pelo atacante, que foi simulado pela equipe de segurança para entender o problema. Nome: carga_telemetria.py (não é necessário executar)
+Questão:
+Com base na evidência gerada pelo script carga_telemetria.py (1.000 amostras, 52% corrompidas com 999.9°C) no sistema beta da BioTemp Guard, analise as seguintes afirmações sobre a
+resiliência operacional (ISO 27001):
+Asserção: Em um ambiente de produção real, o MTTR (Mean Time To Repair/Recover) para os 520 dados incorretos seria considerado numericamente menor se uma automação de remediação
+estivesse ativa na ingestão das APIs.
+PORQUE
+Razão: De acordo com a teoria de confiabilidade, o percentual de MTBF (Mean Time Between Failures) é aumentado diretamente pela velocidade da correção automática implementada,
+transformando o reparo em uma ação preventiva.
+a. A asserção I é falsa e a II é verdadeira.
+b. A asserção I é verdadeira e a II é falsa 
+c. As asserções I e II são verdadeiras, mas a II não é uma justificativa da I
+d. As asserções I e II são verdadeiras, e a II é uma justificativa correta da I.
+e. Ambas as asserções são falsas.
+A resposta correta é: A asserção I é verdadeira e a II é falsa
+8
+Questão Quem é responsável por configurar corretamente os Security Groups (Firewall de instância) para permitir ou bloquear o tráfego de rede para uma aplicação?
+Correto
+Atores:
+Atingiu 1,00 de
+A cloud
+1,00
+o usuário que compra os serviços da cloud
+o terceiro, para quem o usuário provê serviços
+a. Desenvolvedor da aplicação
+b. O cliente do cliente, terceiro
+c. A Cloud
+d. Ambos
+e. Usuário (Cliente do Serviço Cloud) 
+A resposta correta é: Usuário (Cliente do Serviço Cloud)
+9
+Questão Analise as asserções abaixo sobre Gestão de Riscos:
+Incorreto
+I. Um risco que apresenta impacto 'Alto' e probabilidade 'Alta' deve ser classificado obrigatoriamente como 'Crítico' no mapa de calor. PORQUE
+Atingiu 0,00 de
+II. A criticidade de um risco é determinada matematicamente pelo produto da probabilidade pela magnitude do impacto causado ao ativo.
+1,00
+a. Ambas as asserções são falsas
+b. As asserções I e II são verdadeiras, e a II é uma justificativa correta da I.
+c. A asserção I é verdadeira e a II é falsa
+d. A asserção I é falsa e a II é verdadeira. 
+e. As asserções I e II são verdadeiras, mas a II não é uma justificativa da I.
+A resposta correta é: As asserções I e II são verdadeiras, e a II é uma justificativa correta da I.
+10
+Questão Na Tríade CIA, o exemplo 'Prevenir divulgação não autorizada' está diretamente ligado a qual pilar?
+Correto
+Atingiu 1,00 de
+1,00
+a. Automação
+b. Confidencialidade 
+c. Custo e Escala
+d. Disponibilidade
+A resposta correta é: Confidencialidade
+11
+Questão Estudo de Caso: Análise de Criticidade e Percentual de Risco
+Correto
+Durante a fase de auditoria da infraestrutura cloud, o script de automação gerou um gráfico de barras (Figura 2) que quantifica o Score de Risco por porta aberta, baseado nos achados técnicos do
+Atingiu 1,00 de
+nmap (Figura 1). Sabe-se que o item 9.4.1 da 27K restringe o acesso apenas a IPs autorizados.
+1,00
+Para priorizar o plano de ação, a equipe de segurança decidiu calcular o Peso Relativo de Risco de cada serviço em relação ao Risco Total Acumulado identificado no ambiente.
+Gráfico de nível de risco por porta identificada
+Cartesianas (Porta Protocolo, Score de Risco (1=low ; 4=Critical)
+Porta Protocolo: 22/tcp; 80/tcp; 443/tcp; 3306/tcp
+Figura 2
+Para priorizar o plano de ação, a equipe de segurança decidiu calcular o Peso Relativo de Risco de cada serviço em relação ao Risco Total Acumulado identificado no ambiente.
+Considerando os dados apresentados nos gráficos, na ordem da esquerda para a direita, onde o Risco Total Acumulado é a soma dos scores ou pesos de todas as portas identificadas:
+4 (SSH) + 3 (HTTP) + 2 (HTTPS) + 3 (MySQL) = 12,
+qual é o percentual aproximado de representatividade da porta 22 (SSH) sobre o risco total do ambiente e qual a ação recomendada pela ISO 27001?
+a. 12% – O risco é considerado baixo, portanto, a recomendação é aceitar o risco e manter a porta aberta para facilitar o gerenciamento remoto via ksm-user.
+b. 25% – Representa um quarto do risco; a recomendação é apenas monitorar os logs de acesso sem necessidade de bloqueio imediato.
+c. 50% – A porta 22 detém metade de todo o risco da infraestrutura, exigindo a desativação total de todos os outros serviços (HTTP/MySQL) para compensar a vulnerabilidade.
+d. 33,3% – Como o serviço OpenSSH 8.9p1 detém um terço da carga de risco total, a recomendação é a mitigação imediata através do controle, restringindo o acesso 
+apenas a IPs autorizados.
+e. 75% – O risco é tão elevado que a única solução conforme a ISO 27001 é a transferência do risco através da contratação de um seguro cibernético, sem alterações técnicas na
+infraestrutura.
+A resposta correta é: 33,3% – Como o serviço OpenSSH 8.9p1 detém um terço da carga de risco total, a recomendação é a mitigação imediata através do controle, restringindo o acesso
+apenas a IPs autorizados.
+12
+Questão A empresa Security Secret deparou-se com um dilema em um ambiente de Cloud que operou por um total de 720 horas. Durante esse período, ocorreram 6 incidentes de segurança que exigiram
+Correto intervenção. O tempo total gasto pelas equipes para remediar essas falhas e restabelecer a conformidade foi de 120 minutos. Calcule o MTBF e o MTTR, e identifique qual objetivo de segurança da
+nuvem é diretamente impactado pela redução do MTTR.
+Atingiu 1,00 de
+1,00
+Nota técnica:
+MTBF(Mean Time Between Failures) =
+MTTR(Mean Time To Repair) =
+a. MTBF = 120 horas; MTTR = 20 minutos; Visibilidade
+b. MTBF = 120 horas; MTTR = 20 minutos; Agilidade 
+c. MTBF = 120 horas; MTTR = 20 minutos; Confiabilidade
+d. MTBF = 120 horas; MTTR = 20 minutos; Automação
+e. MTBF = 120 horas; MTTR = 720 minutos; Auditabilidade
+A resposta correta é: MTBF = 120 horas; MTTR = 20 minutos; Agilidade
+13
+Questão Uma empresa planeja lançar uma aplicação em minutos em várias regiões do mundo (Tóquio, Londres e São Paulo). Qual vantagem da nuvem permite essa implementação de defesas em escala
+Correto mundial de forma tão rápida?
+Atingiu 1,00 de
+1,00
+a. Automação
+b. Confiabilidade
+c. Alcance Global 
+d. Custo e Escala
+e. Auditabilidade
+A resposta correta é: Alcance Global
+14
+Questão Um novo estagiário precisa de acesso para ler logs no S3, mas o administrador concedeu permissão total de administrador (AdministratorAccess). Qual princípio de design de segurança foi violado?
+Correto
+Atingiu 1,00 de
+1,00
+a. Princípio do menor privilégio 
+b. Disponibilidade total de usuário
+c. Ataque ofensivo
+d. Habilitação da rastreabilidade
+e. Alteração da defesa da superfície de ataque
+A resposta correta é: Princípio do menor privilégio
+15
+Questão Uma empresa de e-commerce precisa garantir que seu site continue operando mesmo durante um pico massivo de acessos ou falha em um servidor. Qual pilar da segurança da informação foca na
+Correto redundância e acesso constante?
+Atingiu 1,00 de
+1,00
+a. Integridade
+b. Governança
+c. Disponibilidade 
+d. Confidencialidade
+e. Automação
+A resposta correta é: Disponibilidade
+16
+Questão Durante uma auditoria de segurança em um ambiente simulado de nuvem, um analista de segurança (utilizando o usuário ksm-user) executa um rastreamento (scan) de rede em uma instância
+Correto específica com o endereço IP 192.168.1.50. O objetivo é identificar a superfície de ataque inicial e possíveis vetores de entrada decorrentes de serviços expostos e desatualizados.
+Atingiu 1,00 de
+Observe a análise dos dados obtidos:
+1,00
+A imagem revela informações cruciais para o planejamento de um teste de invasão:
+1. Identificação do Sistema Operacional: O Nmap detectou que o alvo está rodando Linux (kernel 5.4 - 5.15), especificamente uma distribuição Ubuntu.
+2. Serviços Expostos:
+Porta 22 (SSH): Rodando OpenSSH 8.9p1.
+Portas 80 e 443 (HTTP/HTTPS): Rodando Apache httpd 2.4.52.
+3. Velocidade e Precisão: Foi utilizado o template de temporização -T4 para acelerar o processo sem perder a precisão na detecção de versões (-sV) e do S.O. (-O).
+Figura 1
+Com base na saída do Nmap apresentada, qual seria o próximo passo lógico em uma análise de vulnerabilidades considerando que o Apache 2.4.52 e o OpenSSH 8.9p1 estão sendo executados, e o
+analista teve uma preocupação com as versões que estavam sendo executadas, anotando para você realizar as análises. Sua conclusão, na resolução, foi a descrita em qual alternativa a seguir?
+a. Assumir que, como a porta 443 está aberta, o servidor é 100% seguro contra interceptação de dados.
+b. Tentar um ataque de força bruta imediatamente na porta 22 sem pesquisar versões.
+c. Ignorar o S.O. detectado, pois o kernel Linux 5.x não possui vulnerabilidades conhecidas.
+d. Consultar bases de dados de vulnerabilidades em busca de falhas conhecidas para as versões específicas identificadas nas versões do Apache e OpenSSH. 
+e. Ignorar as versões e assumir que o risco das portas abertas não afeta a conexão remota no quesito segurança.
+A resposta correta é: Consultar bases de dados de vulnerabilidades em busca de falhas conhecidas para as versões específicas identificadas nas versões do Apache e OpenSSH.
+17
+Questão Uma startup de tecnologia está gastando muito tempo da sua equipe de engenharia na manutenção física de servidores. Ao migrar para a Cloud, qual vantagem permite que eles foquem apenas na
+Correto proteção dos dados e no desenvolvimento do produto?
+Atingiu 1,00 de
+1,00
+a. Agilidade
+b. Alcance global
+c. Confiabilidade
+d. Foco estratégico 
+e. Produtividade
+A resposta correta é: Foco estratégico
+18
+Questão Durante uma transferência de arquivos, um erro de rede causou a corrupção de alguns bits. Ao chegar ao destino, o sistema detectou que o arquivo não era idêntico ao original. Qual princípio da CIA
+Correto foi fundamental para essa detecção?
+Atingiu 1,00 de
+1,00
+a. Rastreabilidade
+b. Auditabilidade
+c. Confidencialidade
+d. Disponibilidade
+e. Integridade 
+A resposta correta é: Integridade

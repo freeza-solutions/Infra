@@ -1,0 +1,174 @@
+Relatório de Impacto à Proteção de Dados (RIPD)
+Referência normativa
+Documento elaborado com base na Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais, LGPD),
+especialmente nos artigos 5º, X, 6º, 13, 38 e 46, e nas orientações de Data Protection Impact Assessment
+(DPIA) do Information Commissioner's Office (ICO) e da metodologia de Privacy Impact Assessment (PIA),
+conforme material de apoio "Segurança e Arquitetura em Nuvem, RIDP/LGPD".
+1. Cenário
+Foi interceptado, antes da conclusão do download, um arquivo em PDF referente ao "Exame Nacional de
+Acesso, 2013" do PROFMAT/UFSCar, contendo a listagem de candidatos por sala de prova. O arquivo
+relaciona, para cada candidato, o número de inscrição, o CPF, o RG, a sala de aplicação da prova e o nome
+completo, totalizando centenas de registros distribuídos em várias salas (AT4, Salas 67, 68, 72, 73 e 74).
+A equipe de segurança da informação foi acionada para avaliar o incidente, determinar se o tratamento
+configurado no arquivo está em conformidade com a LGPD e definir uma técnica de
+anonimização/pseudonimização apropriada, documentando o processo em um Relatório de Impacto à Proteção
+de Dados (RIPD).
+2. Dados pessoais e sensíveis identificados
+A análise do arquivo identificou os seguintes campos de dados pessoais:
+• Nome completo, dado pessoal identificador direto.
+• CPF (Cadastro de Pessoa Física), dado pessoal identificador direto e de uso restrito, alto potencial de
+dano se vazado (fraudes, abertura de contas/crédito em nome da vítima).
+• RG (Registro Geral), dado pessoal identificador direto, mesmo risco do CPF.
+• Número de inscrição, identificador indireto, permite associar o candidato a outros sistemas do exame.
+• Sala/local de prova, dado de localização física que, combinado aos demais, permite identificar
+fisicamente a pessoa em data e local determinados.
+Não foram encontrados dados sensíveis na acepção do art. 5º, II, da LGPD (origem racial/étnica, convicção
+religiosa, opinião política, dado de saúde, biométrico etc.). Trata-se, portanto, de dados pessoais comuns,
+porém de alta sensibilidade prática, pois CPF e RG são identificadores únicos e permanentes amplamente
+usados como "chave" para fraude de identidade, por isso, mesmo não sendo "sensíveis" no sentido legal,
+exigem tratamento de segurança reforçado (art. 46, LGPD).
+3. Problemas encontrados e riscos relacionados à LGPD
+3.1 Falhas de segurança no arquivo
+• Dados em texto puro (sem qualquer anonimização, pseudonimização ou mascaramento) em um
+documento amplamente distribuído/publicado (listagem pública de sala de prova).
+• Ausência de controle de acesso: um PDF publicado na internet pode ser baixado, indexado por
+buscadores e replicado indefinidamente.
+• Combinação de identificadores fortes (nome + CPF + RG) em um único registro, o que maximiza o risco
+de reidentificação e uso indevido (violação do princípio da minimização/necessidade, art. 6º, III).
+• Nenhuma indicação de prazo de retenção, finalidade específica ou encarregado (DPO) responsável pelo
+tratamento no próprio documento.
+• Interceptação do arquivo antes da conclusão do download evidencia possível vulnerabilidade em trânsito
+(ausência de criptografia de transporte/canal seguro).
+3.2 Riscos associados (LGPD)
+• Violação dos princípios da finalidade, necessidade e minimização de dados (art. 6º, I e III).
+• Risco de furto de identidade, fraude bancária e abertura de crédito indevida a partir do vazamento de
+CPF/RG.
+• Responsabilização do Controlador (organizadores do exame, SBM/UFSCar) por descumprimento do
+dever de segurança e boas práticas (art. 46 e 50, LGPD).
+• Possibilidade de notificação obrigatória à ANPD e aos titulares em caso de incidente de segurança (art.
+48, LGPD).
+• Aplicação de sanções administrativas (art. 52), incluindo multa de até 2% do faturamento, limitada a
+R$ 50 milhões por infração.
+• Dano reputacional à instituição responsável pelo tratamento.
+4. Técnica de anonimização escolhida
+Recomenda-se a combinação de duas técnicas, aplicadas de forma complementar:
+• Pseudonimização do nome do candidato, substituindo o nome completo por um código único (ex.:
+CAND_001), mantendo uma tabela de correspondência ("chave de reidentificação") guardada
+separadamente pelo Controlador, em ambiente controlado e seguro, nos termos do art. 13, 4º, da LGPD.
+• Mascaramento parcial do CPF e do RG, ocultando os dígitos centrais e preservando apenas os dígitos
+necessários para conferência de autenticidade no momento da prova (ex.: 109.***.**9-4).
+Justificativa:
+• O documento tem finalidade operacional (chamada nominal e organização de salas), portanto ainda é
+necessário localizar e identificar o candidato presencialmente, uma anonimização irreversível (ex.:
+generalização total ou agregação) inviabilizaria essa finalidade.
+• A pseudonimização mantém a possibilidade de reidentificação controlada apenas pelo Controlador (por
+meio da chave), reduzindo drasticamente o risco em caso de vazamento do documento publicado, já que
+quem tiver acesso apenas ao PDF não conseguirá associar o código ao titular.
+• O mascaramento de CPF/RG elimina o principal vetor de fraude de identidade (o número completo e
+utilizável do documento), preservando apenas informação suficiente para conferência visual no dia da
+prova.
+• Diferentemente da agregação/generalização puras, essa combinação preserva a granularidade individual
+necessária (um registro por candidato, uma sala por candidato), essencial para o propósito do documento.
+• É uma abordagem de baixo custo de implementação, reversível apenas pelo Controlador e alinhada às
+técnicas descritas no material de referência (Pseudonimização, Mascaramento, Generalização, Agregação
+e Perturbação).
+5. Aplicação, antes e depois
+Amostra de 5 registros extraídos do arquivo original ("AT4 - SALA 67"), demonstrando o resultado da
+aplicação das técnicas propostas:
+Inscrição Nome (original) CPF (original) RG (original) Nome Sala
+(pseudonimizado)
+836.0105-8 Adriana Sampaio 109.079.268-94 19.362.568 CAND_001 Sala 67
+836.0075-2 Alan Uchoa 054.593.229-79 412.957.267 CAND_002 Sala 67
+Pellejero
+836.0083-3 Alexandre Rogério 115.337.418-83 19.403.177 CAND_003 Sala 67
+Braz
+836.0203-8 Aline Aparecida 379.091.988-84 44.751.137 CAND_004 Sala 67
+Justo
+836.0189-9 Ana Cláudia Ribeiro 338.915.638-09 400.642.827 CAND_005 Sala 67
+Guerra
+Após a aplicação do mascaramento, os mesmos registros (colunas de CPF e RG) ficam:
+Código Sala CPF (mascarado) RG (mascarado)
+CAND_001 Sala 67 109.***.**8-94 19.***.**8
+CAND_002 Sala 67 054.***.**9-79 412.***.**7
+CAND_003 Sala 67 115.***.**8-83 19.***.**7
+CAND_004 Sala 67 379.***.**8-84 44.***.**7
+CAND_005 Sala 67 338.***.**8-09 400.***.**7
+A tabela de correspondência entre o Código (ex.: CAND_001) e o Nome/CPF/RG completos é mantida
+separadamente pelo Controlador, em planilha protegida por senha e acesso restrito ao Encarregado (DPO) e à
+equipe de organização do exame, não sendo distribuída junto à listagem de salas.
+6. Ferramentas utilizadas no processo
+• Python (pandas + módulo re/regex), leitura do PDF (via pdfplumber/camelot), estruturação em
+DataFrame e aplicação programática do mascaramento e da pseudonimização em lote.
+• Biblioteca Faker / geração sequencial de códigos, criação de identificadores pseudônimos (CAND_XXX)
+sem repetição.
+• Planilha eletrônica (Excel/Google Sheets) com proteção por senha, armazenamento da chave de
+reidentificação (mapa Código ↔ Dado original), com acesso restrito e log de acesso.
+• Ferramenta de anonimização ARX (ARX Data Anonymization Tool), validação de k-anonimato e
+simulação de risco de reidentificação da base tratada.
+• OpenRefine, apoio na padronização e limpeza dos dados antes da anonimização.
+• Controle de versão e checksum (hash SHA-256) dos arquivos original e anonimizado, para comprovar
+que o documento distribuído corresponde à versão tratada.
+7. Como comprovar que os dados foram efetivamente
+anonimizados/pseudonimizados
+• Teste de reidentificação (linkage attack): tentar cruzar a base tratada com bases públicas (ex.: listas
+telefônicas, redes sociais) para verificar se algum titular pode ser reidentificado apenas com os dados
+distribuídos.
+• Cálculo de k-anonimato: garantir que cada combinação de atributos remanescentes (ex.: sala + código)
+não isole um indivíduo dentre um grupo menor que "k" registros.
+• Auditoria da tabela de correspondência: comprovar, por meio de log de acesso, que a chave de
+reidentificação está segregada do documento distribuído e acessível apenas a perfis autorizados.
+• Registro no RIPD da matriz de risco (probabilidade × impacto) antes e depois da aplicação da técnica,
+evidenciando a redução do risco residual.
+• Assinatura e registro formal do responsável pelo tratamento (Controlador/DPO), com data e descrição da
+técnica aplicada, compondo o dossiê de conformidade exigível pela ANPD.
+8. Formalização do procedimento (etapas do RIPD)
+Seguindo o roteiro de elaboração do RIPD (baseado no modelo PIA/ICO), o procedimento foi documentado
+nas seguintes etapas:
+• 1. Identificação da necessidade do RIPD, decorrente do incidente de interceptação do arquivo e da
+presença de CPF/RG em texto puro em documento de ampla divulgação.
+• 2. Descrição do tratamento de dados pessoais, coleta e publicação da listagem de candidatos por sala,
+incluindo fluxo de coleta (inscrição), armazenamento e divulgação (PDF público).
+• 3. Processo de consulta, envolvimento do Encarregado (DPO) e da equipe de TI/segurança da informação
+na definição da técnica de anonimização.
+• 4. Avaliação de necessidade e proporcionalidade, base legal: execução de procedimento preparatório
+relacionado a contrato/processo seletivo (art. 7º, V, LGPD); avaliação de que CPF/RG completos não são
+necessários para a finalidade de identificação em sala.
+• 5. Identificação e avaliação de riscos, matriz de risco: probabilidade alta de exposição (documento já
+publicado) × impacto alto (fraude de identidade) = risco alto antes do tratamento; risco reduzido a
+médio/baixo após mascaramento e pseudonimização.
+• 6. Identificação de medidas para tratar o risco, aplicação de mascaramento (CPF/RG) e pseudonimização
+(nome), controle de acesso à chave de reidentificação, cifragem do arquivo em trânsito.
+• 7. Assinatura e registro dos resultados, RIPD assinado pelo Controlador e pelo Encarregado, arquivado
+junto à documentação do processo seletivo.
+• 8. Integração da solução ao projeto, atualização do processo de publicação de listas de sala para que toda
+futura edição do exame já publique os dados anonimizados por padrão (privacy by design, art. 46, §2º).
+9. Pergunta final, riscos caso o arquivo original fosse enviado a outra
+empresa
+Caso este arquivo, no formato original (nome + CPF + RG completos, sem qualquer tratamento), fosse enviado
+a outra empresa, por exemplo, para fins de organização logística ou terceirização de serviços do exame, os
+principais riscos seriam:
+• Compartilhamento de dados pessoais sem base legal e sem contrato de operação de dados (art. 39,
+LGPD), caracterizando tratamento irregular e uso indevido por terceiro (Operador não formalizado).
+• Perda de controle sobre a finalidade e o ciclo de vida dos dados, pois a empresa receptora poderia
+reutilizar CPF/RG para finalidades distintas das autorizadas pelos titulares.
+• Ampliação da superfície de ataque: cada nova cópia do arquivo é um novo ponto de vazamento possível,
+multiplicando o risco de incidente de segurança.
+• Responsabilidade solidária entre Controlador e Operador em caso de dano ao titular decorrente do
+tratamento compartilhado (art. 42, §1º, LGPD).
+• Risco de transferência internacional indevida de dados, caso a empresa receptora armazene ou processe
+os dados em servidores fora do Brasil sem as salvaguardas exigidas pelos arts. 33 a 36 da LGPD.
+• Necessidade de notificação à ANPD e aos titulares caso o compartilhamento resulte em incidente de
+segurança (art. 48), com possível aplicação de multa administrativa (art. 52) a ambas as organizações.
+Por isso, qualquer compartilhamento externo deveria ocorrer apenas com a base já pseudonimizada/mascarada,
+mediante contrato de operação de dados, definição clara de finalidade, prazo de retenção e medidas de
+segurança, formalizados em aditamento ao presente RIPD.
+10. Conclusão
+O arquivo analisado apresenta dados pessoais identificadores (nome, CPF e RG) em texto puro, associados a
+um dado de localização (sala de prova), configurando risco alto de reidentificação e fraude em caso de
+vazamento, como o próprio cenário de interceptação demonstra. A combinação de pseudonimização do nome
+com mascaramento parcial de CPF e RG é a técnica recomendada, por preservar a utilidade operacional do
+documento (identificação em sala) e, ao mesmo tempo, reduzir de forma significativa o risco aos titulares, em
+conformidade com os princípios da necessidade, minimização e segurança da LGPD (art. 6º e art. 46). O
+procedimento foi formalizado neste RIPD, com matriz de risco, técnicas aplicadas, ferramentas utilizadas e
+mecanismos de comprovação de eficácia, devendo ser revisado sempre que o processo de tratamento for
+alterado.

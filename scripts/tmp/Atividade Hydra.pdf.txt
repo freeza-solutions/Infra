@@ -1,0 +1,69 @@
+Aberto: quarta-feira, 23 set. 2026, 18:00
+Vencimento: quarta-feira, 23 set. 2026, 22:00
+Lembre-se:
+Entrega: Individual
+Realização: Individual
+Atividade Avaliativa: Sim
+Atividade Prática — Hydra
+Crie um relatório com as evidências deste laboratório, ele devem conter o registro do seu user AWS e o seu IP
+associado nas Práticas com o Hydra
+Objetivo: utilizar o Hydra para realizar um teste de autenticação em um ambiente controlado e analisar os
+resultados.
+1. Inicie o laboratório
+Inicie o laboratório Kali Linux na AWS, utilizando o script desenvolvido na Sprint 1.
+2. Acesse o Kali Linux
+Acesse a interface do Kali Linux via VNC.
+Abra um terminal.
+3. Acesse como root
+Atue como usuário root no Kali Linux.
+4. Verifique a instalação do Hydra
+Verifique se o THC Hydra está instalado:
+hydra -V
+Desconsidere:
+5. Realize o teste de autenticação
+Será utilizado o protocolo HTTPS.
+Antes de executar o comando:
+Substitua o IP pelo IP do seu laboratório.
+Substitua o usuário e a senha pelos valores definidos no seu ambiente.
+Exemplo:
+hydra -l kasm_user -p urubu100 -s 6901 -f -vV -t 1 -w 30 13.222.9.175 https-get /
+Registre o resultado e explique o que significa uma porta open, closed ou filtered.
+6. Analise o resultado
+Após a execução, verifique as informações apresentadas pelo Hydra.
+O ataque teve sucesso ou falha?
+Qual foi o tempo de execução?
+Qual foi a quantidade de tentativas realizadas?
+Qual porta foi utilizada?
+Qual protocolo/serviço foi testado?
+O Hydra encontrou um usuário e senha válidos?
+O que a mensagem apresentada pelo Hydra indica?
+7. Responda
+Analise o resultado do teste e informe:
+O ataque teve sucesso ou falha?
+Quanto tempo levou o teste?
+Qual foi a quantidade de alvos/senhas testados?
+Qual é a porta utilizada?
+Qual usuário e senha foram confirmados?
+O que o resultado demonstra sobre a segurança do mecanismo de autenticação?
+8. Compare os resultados
+Explique:
+O que acontece quando a senha utilizada está correta?
+O que acontece quando a senha está incorreta?
+O que acontece quando é utilizado os protocolos: ssh, http ou ftp - Observe cada um e avalie os resultados
+O que acontece quando o protocolo testado não corresponde ao serviço disponível?
+9. Relacione com Segurança da Informação
+Com base no experimento, responda:
+Quais mecanismos poderiam ser utilizados para dificultar ou impedir esse tipo de ataque?
+Considere, por exemplo:
+Política de senhas;
+Bloqueio após várias tentativas;
+Rate limiting;
+MFA;
+Monitoramento de logs;
+Restrição de acesso à porta/serviço.
+Responda as 3 perguntas do ecossistema da Auditoria Sistêmica:
+Adicionar envio
+Status de envio
+Status de envio Nenhum envio foi feito ainda
+Status da avaliação Não avaliado
+Tempo restante 3 horas 3 minutos restando

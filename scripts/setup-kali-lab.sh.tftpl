@@ -1,10 +1,12 @@
 #!/bin/bash
-# Ambiente Kali AWS - Atacante (Kali/Kasm) e Alvo (LocalStack)
+# Ambiente Kali AWS - Kali/Kasm acessivel pelo navegador
 # Executado como user_data (cloud-init) no primeiro boot da instancia, como root.
 
 # 1. Limpar (Remove qualquer rastro que possa causar o erro 401)
 echo "Limpando ambiente"
-docker rm -f kali-lab localstack-lab 2>/dev/null
+docker rm -f kali-lab 2>/dev/null
+# LocalStack desativado:
+# docker rm -f localstack-lab 2>/dev/null
 docker network rm lab-network 2>/dev/null
 
 # 2. Preparacao do Host
@@ -24,13 +26,14 @@ docker run -d \
   --shm-size=512m \
   kasmweb/kali-rolling-desktop:1.15.0
 
-# 4. Subida do LocalStack - Alvo
-docker run -d \
-  --name localstack-lab \
-  --network lab-network \
-  -p 4566:4566 \
-  -e SERVICES=s3,iam \
-  localstack/localstack
+# 4. LocalStack desativado. Para reativar, remova os comentarios deste bloco.
+# docker run -d \
+#   --name localstack-lab \
+#   --network lab-network \
+#   -p 4566:4566 \
+#   -e SERVICES=s3,iam \
+#   -e LOCALSTACK_AUTH_TOKEN \
+#   localstack/localstack
 
 echo "Aguardando inicializacao (30 segundos)"
 sleep 30

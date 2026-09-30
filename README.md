@@ -52,4 +52,9 @@
 | `variables.tf` | Parâmetros configuráveis (instância, disco, chave, senha...) |
 | `main.tf` | AMI Ubuntu, security group (22 e 6901) e a instância EC2 |
 | `outputs.tf` | IP público, comando SSH pronto e URL do Kali |
-| `scripts/setup-kali-lab.sh.tftpl` | Script (user_data) que sobe os containers Kali + LocalStack no primeiro boot |
+| `scripts/setup-kali-lab.sh.tftpl` | Script (user_data) que sobe o container Kali/Kasm no primeiro boot; o bloco do LocalStack está desativado |
+
+## Kali User e senha
+| User | Senha |
+|---|---|
+| `kasm_user` | Definida em `terraform.tfvars` pela variável `vnc_password` |
